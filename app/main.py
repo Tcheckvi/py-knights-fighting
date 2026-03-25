@@ -106,7 +106,6 @@ def _fight(k1: Dict, k2: Dict) -> None:
 def battle(knightsconfig: Dict) -> Dict:
     knights = create_knights(knightsconfig)
 
-    # combats
     result1 = fight(knights["lancelot"], knights["mordred"])
     result2 = fight(knights["arthur"], knights["red_knight"])
 

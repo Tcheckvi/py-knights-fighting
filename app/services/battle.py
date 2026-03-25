@@ -10,6 +10,6 @@ def battle(knight1: Knight, knight2: Knight) -> Dict[str, int]:
     knight2.take_damage(damage_to_k2)
 
     return {
-        knight1.name: max(knight1.hp, 0),
-        knight2.name: max(knight2.hp, 0),
+        knight1.name: knight1.hp,
+        knight2.name: knight2.hp,
     }
