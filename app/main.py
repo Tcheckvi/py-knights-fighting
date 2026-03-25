@@ -1,6 +1,6 @@
-# app/main.py
-
 from typing import Dict
+from app.data.knights_data import create_knights
+from app.services.battle import battle as fight
 
 
 KNIGHTS = {
@@ -104,17 +104,15 @@ def _fight(k1: Dict, k2: Dict) -> None:
 
 
 def battle(knightsconfig: Dict) -> Dict:
-    knights = {
-        name: _prepare_knight(data)
-        for name, data in knightsconfig.items()
-    }
+    knights = create_knights(knightsconfig)
 
-    _fight(knights["lancelot"], knights["mordred"])
-    _fight(knights["arthur"], knights["red_knight"])
+    # combats
+    result1 = fight(knights["lancelot"], knights["mordred"])
+    result2 = fight(knights["arthur"], knights["red_knight"])
 
     return {
-        knight["name"]: knight["hp"]
-        for knight in knights.values()
+        **result1,
+        **result2,
     }
 
 

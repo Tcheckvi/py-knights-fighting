@@ -1,28 +1,21 @@
+from typing import Dict
 from app.models.knight import Knight
 from app.models.weapon import Weapon
 from app.models.armour import Armour
 from app.models.potion import Potion
-from typing import Dict
 
 
-def create_knights() -> Dict:
+def create_knights(knights_config: Dict) -> Dict[str, Knight]:
+    knights = {}
 
-    red_knight = Knight(
-        name="Red Knight",
-        hp=70,
-        power=40,
-        weapon=Weapon("Sword", 45),
-        armour=[Armour("breastplate", 25)],
-        potion=Potion("Blessing", {"hp": 10, "power": 5}),
-    )
+    for key, data in knights_config.items():
+        knights[key] = Knight(
+            name=data["name"],
+            hp=data["hp"],
+            power=data["power"],
+            weapon=Weapon(**data["weapon"]),
+            armour=[Armour(**a) for a in data["armour"]],
+            potion=Potion(**data["potion"]) if data["potion"] else None,
+        )
 
-    x_knight = Knight(
-        name="X Knight",
-        hp=100,
-        power=70,
-        weapon=Weapon("Axe", 0),
-        armour=[Armour("shield", 35)],
-        potion=None,
-    )
-
-    return red_knight, x_knight
+    return knights
